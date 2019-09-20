@@ -1,57 +1,70 @@
 # -*- coding: utf-8 -*-
 
+"""Tests for the WordCount Statistics Generator module"""
+
 import unittest
 
 from text_statistics import WordCount
+from .unit_test_data import UnitTestData
 
 
 class TestWordCount(unittest.TestCase):
+    """
+    Attributes:
+        tests: A list of UnitTestData objects containing test data and the
+            expected result from the WordCount object once this data has
+            been parsed.
+    """
     def setUp(self):
-        self.word_count = WordCount()
-        # TODO add fixture to remove duplication
-
-    def test_no_words(self):
-        line = ''
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 0)
-
-    def test_one_word(self):
-        line = 'Hello'
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 1)
-
-    def test_one_line(self):
-        line = 'Hello, World!'
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 2)
-
-    def test_multiple_lines(self):
-        lines = [
-                'This is the first line',
-                'And this is the second line',
+        self.tests = [
+            UnitTestData('No Words', [''], expected_result=0),
+            UnitTestData('One Word', ['Hello'], expected_result=1),
+            UnitTestData('One Line', ['Hello, World!'], expected_result=2),
+            UnitTestData(
+                'Multiple Lines',
+                [
+                    'This is the first line\n',
+                    'And this is the second line',
+                ],
+                expected_result=11
+            ),
+            UnitTestData(
+                'Multiple Whitespace',
+                ['This  has inconsistent    whitespace'],
+                expected_result=4
+            ),
+            UnitTestData(
+                'Trailing Whitespace',
+                [' Trailing whitespace  '],
+                expected_result=2
+            ),
+            UnitTestData(
+                'UTF-8 String',
+                ['È in italiano'],
+                expected_result=3
+            ),
+            UnitTestData(
+                'Non-Latin Charset',
+                ['它是中文的'],
+                expected_result=1
+            ),
         ]
 
-        for line in lines:
-            self.word_count.parse_line(line)
+    def test_word_count(self):
+        """Test each entry in the tests fixture"""
+        for test in self.tests:
+            # Create a new WordCount object to erase the state from the
+            # previous test
+            word_count = WordCount()
 
-        self.assertEqual(self.word_count.result(), 11)
+            for line in test.lines:
+                word_count.parse_line(line)
 
-    def test_multiple_whitespace(self):
-        line = 'This  has inconsistent    whitespace'
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 4)
-
-    def test_trailing_space(self):
-        line = ' Trailing whitespace  '
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 2)
-
-    def test_utf8(self):
-        line = 'È in italiano'
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 3)
-
-    def test_non_latin_charset(self):
-        line = '它是中文的'
-        self.word_count.parse_line(line)
-        self.assertEqual(self.word_count.result(), 1)
+            actual_result = word_count.result()
+            self.assertEqual(
+                actual_result,
+                test.expected_result,
+                "'{}' test failed. Got: '{}' but expected: '{}'".format(
+                    test.name, actual_result, test.expected_result
+                )
+            )
