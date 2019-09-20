@@ -5,18 +5,17 @@
 import unittest
 
 from text_statistics import WordCount
+from .base_plugin_test import BasePluginTest
 from .unit_test_data import UnitTestData
 
 
-class TestWordCount(unittest.TestCase):
-    """
-    Attributes:
-        tests: A list of UnitTestData objects containing test data and the
-            expected result from the WordCount object once this data has
-            been parsed.
-    """
-    def setUp(self):
-        self.tests = [
+class TestWordCount(BasePluginTest, unittest.TestCase):
+    """Test the WordCount plugin using the python unittest framework."""
+
+    @property
+    def plugin_tests(self):
+        """A list of UnitTestData objects for BasePluginTest to test."""
+        return [
             UnitTestData('No Words', [''], expected_result=0),
             UnitTestData('One Word', ['Hello'], expected_result=1),
             UnitTestData('One Line', ['Hello, World!'], expected_result=2),
@@ -50,21 +49,6 @@ class TestWordCount(unittest.TestCase):
             ),
         ]
 
-    def test_word_count(self):
-        """Test each entry in the tests fixture"""
-        for test in self.tests:
-            # Create a new WordCount object to erase the state from the
-            # previous test
-            word_count = WordCount()
-
-            for line in test.lines:
-                word_count.parse_line(line)
-
-            actual_result = word_count.result()
-            self.assertEqual(
-                actual_result,
-                test.expected_result,
-                "'{}' test failed. Got: '{}' but expected: '{}'".format(
-                    test.name, actual_result, test.expected_result
-                )
-            )
+    def initialise_plugin(self):
+        """Create a new WordCount object."""
+        self.plugin = WordCount()
