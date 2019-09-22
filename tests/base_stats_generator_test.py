@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-"""Provides an abstract class to help with testing plugins."""
+"""Provides an abstract BaseStatsGeneratorTest Mixin to help test plugins.
+
+This Mixin is used to reduce code duplication in the unit tests.
+"""
 
 from abc import ABC, abstractmethod
 from typing import Any, List
@@ -10,23 +13,31 @@ from .unit_test_data import UnitTestData
 
 
 class BaseStatsGeneratorTest(ABC):
-    """A base class than can be inherited to help test plugin classes.
+    """A base class than can be inherited to help test StatisiticsGenerators.
 
-    The class is designed to be used with Python's unittest framework.
+    Use this class as a Mixin with unittest.TestCase when testing
+    StatisticGenerator subclasses to avoid code duplication.
 
-    This abstract class provides a ``test_stats_generator`` method which tests
-    the plugin with the tests defined in the ``stats_generator_tests``
-    property. You need to override the ``stats_generator_tests`` property to
-    return the tests you want to run and you will also need to override the
-    ``get_stats_gernerator`` method so it returns the correct plugin object.
+    You will need to override the ``stats_generator_tests`` property so that it
+    returns a list of UnitTestData objects you want to run the tests on. You
+    will also need to override the ``get_stats_generator`` method so it returns
+    an instance of the object you want to test.
+
+    Example:
+        class TestFoo(BaseStatsGeneratorTest, unittest.TestCase):
+            def tests(self):
+                ...
+
+            @staticmethod
+            def get_stats_generator():
+                ...
     """
-
     @property
     @abstractmethod
     def stats_generator_tests(self) -> List[UnitTestData]:
         """A list of UnitTestData objects to test.
 
-        Override this so it returns a list of tests we want to run.
+        Override this so it returns a list of tests to run.
 
         Example:
             return [
