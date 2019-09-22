@@ -6,16 +6,17 @@ from typing import List
 import unittest
 
 from text_statistics import LetterCount
-from .base_plugin_test import BasePluginTest
+from .base_stats_generator_test import BaseStatsGeneratorTest
 from .unit_test_data import UnitTestData
 
 
-class TestLetterCount(BasePluginTest, unittest.TestCase):
+class TestLetterCount(BaseStatsGeneratorTest, unittest.TestCase):
     """Test the LetterCount plugin using the python unittest framework."""
 
     @property
-    def plugin_tests(self) -> List[UnitTestData]:
-        """A list of UnitTestData objects for BasePluginTest to test."""
+    def stats_generator_tests(self) -> List[UnitTestData]:
+        """A list of UnitTestData objects for BaseStatsGeneratorTest to test.
+        """
         return [
             UnitTestData('No Letters', [''], expected_result=0),
             UnitTestData('One Letter', ['A'], expected_result=1),
@@ -50,6 +51,6 @@ class TestLetterCount(BasePluginTest, unittest.TestCase):
         ]
 
     @staticmethod
-    def get_plugin() -> LetterCount:
+    def get_stats_generator() -> LetterCount:
         """Return a new LetterCount object."""
         return LetterCount()

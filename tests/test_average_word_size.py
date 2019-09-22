@@ -6,16 +6,17 @@ from typing import List
 import unittest
 
 from text_statistics import AverageWordSize
-from .base_plugin_test import BasePluginTest
+from .base_stats_generator_test import BaseStatsGeneratorTest
 from .unit_test_data import UnitTestData
 
 
-class TestAverageWordSize(BasePluginTest, unittest.TestCase):
+class TestAverageWordSize(BaseStatsGeneratorTest, unittest.TestCase):
     """Test the AverageWordSize plugin using the python unittest framework."""
 
     @property
-    def plugin_tests(self) -> List[UnitTestData]:
-        """A list of UnitTestData objects for BasePluginTest to test."""
+    def stats_generator_tests(self) -> List[UnitTestData]:
+        """A list of UnitTestData objects for BaseStatsGeneratorTest to test.
+        """
         return [
             UnitTestData('No Words', [''], expected_result=0.0),
             UnitTestData('One Word', ['Hello'], expected_result=5.0),
@@ -45,17 +46,17 @@ class TestAverageWordSize(BasePluginTest, unittest.TestCase):
         ]
 
     @staticmethod
-    def get_plugin() -> AverageWordSize:
+    def get_stats_generator() -> AverageWordSize:
         """Return a new AverageWordSize object."""
         return AverageWordSize()
 
     def test_decimal_places(self) -> None:
         """Test the decimal_place constructor parameter."""
-        plugin: AverageWordSize = AverageWordSize(decimal_places=3)
-        plugin.parse_line('Test Decimal Places')
+        stats_generator: AverageWordSize = AverageWordSize(decimal_places=3)
+        stats_generator.parse_line('Test Decimal Places')
         expected_result: float = 5.667
 
         self.assertEqual(
-            plugin.result(),
+            stats_generator.result(),
             expected_result
         )

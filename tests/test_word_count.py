@@ -6,16 +6,17 @@ from typing import List
 import unittest
 
 from text_statistics import WordCount
-from .base_plugin_test import BasePluginTest
+from .base_stats_generator_test import BaseStatsGeneratorTest
 from .unit_test_data import UnitTestData
 
 
-class TestWordCount(BasePluginTest, unittest.TestCase):
+class TestWordCount(BaseStatsGeneratorTest, unittest.TestCase):
     """Test the WordCount plugin using the python unittest framework."""
 
     @property
-    def plugin_tests(self) -> List[UnitTestData]:
-        """A list of UnitTestData objects for BasePluginTest to test."""
+    def stats_generator_tests(self) -> List[UnitTestData]:
+        """A list of UnitTestData objects for BaseStatsGeneratorTest to test.
+        """
         return [
             UnitTestData('No Words', [''], expected_result=0),
             UnitTestData('One Word', ['Hello'], expected_result=1),
@@ -51,6 +52,6 @@ class TestWordCount(BasePluginTest, unittest.TestCase):
         ]
 
     @staticmethod
-    def get_plugin() -> WordCount:
+    def get_stats_generator() -> WordCount:
         """Create a new WordCount object."""
         return WordCount()

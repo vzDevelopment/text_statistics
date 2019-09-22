@@ -9,21 +9,21 @@ from text_statistics import StatisticsGenerator
 from .unit_test_data import UnitTestData
 
 
-class BasePluginTest(ABC):
+class BaseStatsGeneratorTest(ABC):
     """A base class than can be inherited to help test plugin classes.
 
     The class is designed to be used with Python's unittest framework.
 
-    This abstract class provides a ``test_plugin`` method which tests the
-    plugin with the tests defined in the ``plugin_tests`` property. You need to
-    override the ``plugin_tests`` property to return the tests you want to run
-    and you will also need to override the ``initialise_plugin`` method so it
-    knows how to reset/create a new plugin object.
+    This abstract class provides a ``test_stats_generator`` method which tests
+    the plugin with the tests defined in the ``stats_generator_tests``
+    property. You need to override the ``stats_generator_tests`` property to
+    return the tests you want to run and you will also need to override the
+    ``get_stats_gernerator`` method so it returns the correct plugin object.
     """
 
     @property
     @abstractmethod
-    def plugin_tests(self) -> List[UnitTestData]:
+    def stats_generator_tests(self) -> List[UnitTestData]:
         """A list of UnitTestData objects to test.
 
         Override this so it returns a list of tests we want to run.
@@ -37,8 +37,8 @@ class BasePluginTest(ABC):
 
     @staticmethod
     @abstractmethod
-    def get_plugin() -> StatisticsGenerator:
-        """Returns an instance of the Plugin we want to test.
+    def get_stats_generator() -> StatisticsGenerator:
+        """Returns an instance of the StatsGenerator Plugin we want to test.
 
         Override this so it returns the correct object that is being tested
 
@@ -47,18 +47,18 @@ class BasePluginTest(ABC):
         """
         raise NotImplementedError()
 
-    def test_plugin(self) -> None:
-        """Test all the entries in the ``plugin_tests`` property."""
-        for test in self.plugin_tests:
+    def test_stats_generator(self) -> None:
+        """Test all the entries in the ``stats_generator_tests`` property."""
+        for test in self.stats_generator_tests:
             # subTest will be implemented when this class is mixed into
             # unittest.TestCase
             with self.subTest(lines=test.lines):  # type: ignore[attr-defined] # pylint: disable=no-member
-                plugin = self.get_plugin()
+                stats_generator = self.get_stats_generator()
 
                 for line in test.lines:
-                    plugin.parse_line(line)
+                    stats_generator.parse_line(line)
 
-                actual_result: Any = plugin.result()
+                actual_result: Any = stats_generator.result()
                 # assertEqual will be implemented when this class is mixed into
                 # unittest.TestCase
                 self.assertEqual(  # type: ignore[attr-defined] # pylint: disable=no-member

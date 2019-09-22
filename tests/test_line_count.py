@@ -6,16 +6,17 @@ from typing import List
 import unittest
 
 from text_statistics import LineCount
-from .base_plugin_test import BasePluginTest
+from .base_stats_generator_test import BaseStatsGeneratorTest
 from .unit_test_data import UnitTestData
 
 
-class TestLineCount(BasePluginTest, unittest.TestCase):
+class TestLineCount(BaseStatsGeneratorTest, unittest.TestCase):
     """Test the LineCount plugin using the python unittest framework."""
 
     @property
-    def plugin_tests(self) -> List[UnitTestData]:
-        """A list of UnitTestData objects for BasePluginTest to test."""
+    def stats_generator_tests(self) -> List[UnitTestData]:
+        """A list of UnitTestData objects for BaseStatsGeneratorTest to test.
+        """
         return [
             UnitTestData('No Lines', [], expected_result=0),
             UnitTestData('One Line', ['Hello'], expected_result=1),
@@ -35,6 +36,6 @@ class TestLineCount(BasePluginTest, unittest.TestCase):
         ]
 
     @staticmethod
-    def get_plugin() -> LineCount:
+    def get_stats_generator() -> LineCount:
         """Return a new LineCount object."""
         return LineCount()
