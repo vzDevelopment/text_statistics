@@ -24,12 +24,12 @@ class StatisticsGenerator(ABC):
         This method is called for every line in a text file. The subclass
         should override this class and generate statistics from the data.
         """
-        pass
+        raise NotImplementedError()
 
     @abstractmethod
     def result(self) -> Any:
         """Return the result from the parsed data."""
-        pass
+        raise NotImplementedError()
 
     def __str__(self) -> str:
         """Return the result as a string."""
