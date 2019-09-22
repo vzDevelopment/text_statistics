@@ -26,28 +26,26 @@ class BasePluginTest(ABC):
     def plugin_tests(self) -> List[UnitTestData]:
         """A list of UnitTestData objects to test.
 
-        The UnitTestData objects contain the name of the test, data to be
-        parsed, and the expected output.
+        Override this so it returns a list of tests we want to run.
 
         Example:
             return [
                 UnitTestData('Test Name', ['example input'], 'expected_result')
             ]
         """
-        return []
+        raise NotImplementedError()
 
+    @staticmethod
     @abstractmethod
-    def initialise_plugin(self) -> None:
-        """Creates the ``plugin`` property.
+    def get_plugin() -> StatisticsGenerator:
+        """Returns an instance of the Plugin we want to test.
 
-        Running this should also clear the previous plugin object's state.
+        Override this so it returns the correct object that is being tested
 
         Example:
-            self.plugin = Plugin()
+            return WordCount()
         """
-        # This is an abc.abstractmethod and cannot run so ignore the
-        # type error given by mypy
-        self.plugin: StatisticsGenerator = None    # type: ignore[arg-type]
+        raise NotImplementedError()
 
     def test_plugin(self) -> None:
         """Test all the entries in the ``plugin_tests`` property."""
@@ -55,13 +53,12 @@ class BasePluginTest(ABC):
             # subTest will be implemented when this class is mixed into
             # unittest.TestCase
             with self.subTest(lines=test.lines):  # type: ignore[attr-defined] # pylint: disable=no-member
-                # Erase the state from the previous tests
-                self.initialise_plugin()
+                plugin = self.get_plugin()
 
                 for line in test.lines:
-                    self.plugin.parse_line(line)
+                    plugin.parse_line(line)
 
-                actual_result: Any = self.plugin.result()
+                actual_result: Any = plugin.result()
                 # assertEqual will be implemented when this class is mixed into
                 # unittest.TestCase
                 self.assertEqual(  # type: ignore[attr-defined] # pylint: disable=no-member

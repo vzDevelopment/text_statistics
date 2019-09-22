@@ -44,9 +44,10 @@ class TestAverageWordSize(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self) -> None:
-        """Create a new AverageWordSize object."""
-        self.plugin: AverageWordSize = AverageWordSize()
+    @staticmethod
+    def get_plugin() -> AverageWordSize:
+        """Return a new AverageWordSize object."""
+        return AverageWordSize()
 
     def test_decimal_places(self) -> None:
         """Test the decimal_place constructor parameter."""

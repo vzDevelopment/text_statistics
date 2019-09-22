@@ -34,6 +34,7 @@ class TestLineCount(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self) -> None:
-        """Create a new LineCount object."""
-        self.plugin: LineCount = LineCount()
+    @staticmethod
+    def get_plugin() -> LineCount:
+        """Return a new LineCount object."""
+        return LineCount()

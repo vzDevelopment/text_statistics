@@ -49,6 +49,7 @@ class TestLetterCount(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self) -> None:
-        """Create a new LetterCount object."""
-        self.plugin: LetterCount = LetterCount()
+    @staticmethod
+    def get_plugin() -> LetterCount:
+        """Return a new LetterCount object."""
+        return LetterCount()

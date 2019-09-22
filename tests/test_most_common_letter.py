@@ -64,6 +64,7 @@ class TestMostCommonLetter(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self) -> None:
-        """Create a new MostCommonLetter object."""
-        self.plugin: MostCommonLetter = MostCommonLetter()
+    @staticmethod
+    def get_plugin() -> MostCommonLetter:
+        """Return a new MostCommonLetter object."""
+        return MostCommonLetter()

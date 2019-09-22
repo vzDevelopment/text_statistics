@@ -50,6 +50,7 @@ class TestWordCount(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self) -> None:
+    @staticmethod
+    def get_plugin() -> WordCount:
         """Create a new WordCount object."""
-        self.plugin: WordCount = WordCount()
+        return WordCount()
