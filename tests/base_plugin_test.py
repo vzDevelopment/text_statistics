@@ -3,6 +3,10 @@
 """Provides an abstract class to help with testing plugins."""
 
 from abc import ABC, abstractmethod
+from typing import Any, List
+
+from text_statistics import StatisticsGenerator
+from .unit_test_data import UnitTestData
 
 
 class BasePluginTest(ABC):
@@ -19,7 +23,7 @@ class BasePluginTest(ABC):
 
     @property
     @abstractmethod
-    def plugin_tests(self):
+    def plugin_tests(self) -> List[UnitTestData]:
         """A list of UnitTestData objects to test.
 
         The UnitTestData objects contain the name of the test, data to be
@@ -33,7 +37,7 @@ class BasePluginTest(ABC):
         return []
 
     @abstractmethod
-    def initialise_plugin(self):
+    def initialise_plugin(self) -> None:
         """Creates the ``plugin`` property.
 
         Running this should also clear the previous plugin object's state.
@@ -41,24 +45,26 @@ class BasePluginTest(ABC):
         Example:
             self.plugin = Plugin()
         """
-        self.plugin = None
+        # This is an abc.abstractmethod and cannot run so ignore the
+        # type error given by mypy
+        self.plugin: StatisticsGenerator = None    # type: ignore[arg-type]
 
-    def test_plugin(self):
+    def test_plugin(self) -> None:
         """Test all the entries in the ``plugin_tests`` property."""
         for test in self.plugin_tests:
             # subTest will be implemented when this class is mixed into
             # unittest.TestCase
-            with self.subTest(lines=test.lines):    # pylint: disable=no-member
+            with self.subTest(lines=test.lines):  # type: ignore[attr-defined] # pylint: disable=no-member
                 # Erase the state from the previous tests
                 self.initialise_plugin()
 
                 for line in test.lines:
                     self.plugin.parse_line(line)
 
-                actual_result = self.plugin.result()
+                actual_result: Any = self.plugin.result()
                 # assertEqual will be implemented when this class is mixed into
                 # unittest.TestCase
-                self.assertEqual(   # pylint: disable=no-member
+                self.assertEqual(  # type: ignore[attr-defined] # pylint: disable=no-member
                     actual_result,
                     test.expected_result,
                     "'{}' test failed. Got: '{}' but expected: '{}'".format(

@@ -2,6 +2,7 @@
 
 """Tests for the AverageWordSize Statistics Generator module"""
 
+from typing import List
 import unittest
 
 from text_statistics import AverageWordSize
@@ -13,7 +14,7 @@ class TestAverageWordSize(BasePluginTest, unittest.TestCase):
     """Test the AverageWordSize plugin using the python unittest framework."""
 
     @property
-    def plugin_tests(self):
+    def plugin_tests(self) -> List[UnitTestData]:
         """A list of UnitTestData objects for BasePluginTest to test."""
         return [
             UnitTestData('No Words', [''], expected_result=0.0),
@@ -43,15 +44,15 @@ class TestAverageWordSize(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self):
+    def initialise_plugin(self) -> None:
         """Create a new AverageWordSize object."""
-        self.plugin = AverageWordSize()
+        self.plugin: AverageWordSize = AverageWordSize()
 
-    def test_decimal_places(self):
+    def test_decimal_places(self) -> None:
         """Test the decimal_place constructor parameter."""
-        plugin = AverageWordSize(decimal_places=3)
+        plugin: AverageWordSize = AverageWordSize(decimal_places=3)
         plugin.parse_line('Test Decimal Places')
-        expected_result = 5.667
+        expected_result: float = 5.667
 
         self.assertEqual(
             plugin.result(),

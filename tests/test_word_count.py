@@ -2,6 +2,7 @@
 
 """Tests for the WordCount Statistics Generator module"""
 
+from typing import List
 import unittest
 
 from text_statistics import WordCount
@@ -13,7 +14,7 @@ class TestWordCount(BasePluginTest, unittest.TestCase):
     """Test the WordCount plugin using the python unittest framework."""
 
     @property
-    def plugin_tests(self):
+    def plugin_tests(self) -> List[UnitTestData]:
         """A list of UnitTestData objects for BasePluginTest to test."""
         return [
             UnitTestData('No Words', [''], expected_result=0),
@@ -49,6 +50,6 @@ class TestWordCount(BasePluginTest, unittest.TestCase):
             ),
         ]
 
-    def initialise_plugin(self):
+    def initialise_plugin(self) -> None:
         """Create a new WordCount object."""
-        self.plugin = WordCount()
+        self.plugin: WordCount = WordCount()

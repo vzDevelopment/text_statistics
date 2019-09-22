@@ -4,12 +4,12 @@ from .statistics_generator import StatisticsGenerator
 
 
 class LineCount(StatisticsGenerator):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__('Line Count')
-        self._count = 0
+        self._count: int = 0
 
-    def parse_line(self, line):
+    def parse_line(self, line: str) -> None:
         self._count += 1
 
-    def result(self):
+    def result(self) -> int:
         return self._count
