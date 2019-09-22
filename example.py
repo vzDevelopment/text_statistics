@@ -34,8 +34,8 @@ for identifier, stats_generator in stats.stats_generators.items():
     print(f"{identifier}: {stats_generator}")
 
 # Create your own stats
-words = stats.stats_generators.get('Word Count').result()
-lines = stats.stats_generators.get('Line Count').result()
+words = stats.get('Word Count').result()
+lines = stats.get('Line Count').result()
 words_per_line = words / lines
 
 print(f"Words per line: {words_per_line}")

@@ -36,3 +36,23 @@ class TestTextStatistics(unittest.TestCase):
             # The Mock confuses Mypy here so disable the type checking c.f.
             # https://github.com/python/mypy/issues/6713
             stats_generator.parse_line.assert_called_with(mock_data)  # type: ignore[attr-defined]
+
+    def test_get(self) -> None:
+        """Test TextStatistic's get method."""
+
+        stats_generator_1 = 'Mock Stats 1'
+        stats_generator_2 = 'Mock Stats 2'
+
+        self.assertEqual(
+            self._stats.get(stats_generator_1),
+            self._stats.stats_generators.get(stats_generator_1)
+        )
+
+        self.assertNotEqual(
+            self._stats.get(stats_generator_1),
+            self._stats.stats_generators.get(stats_generator_2)
+        )
+
+        self.assertIsNone(
+            self._stats.get('does-not-exist')
+        )

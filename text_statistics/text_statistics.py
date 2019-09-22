@@ -2,7 +2,7 @@
 
 """Calculates statistics for a given file."""
 
-from typing import Dict
+from typing import Dict, Optional
 
 from .statistics_generator import StatisticsGenerator
 
@@ -43,3 +43,11 @@ class TextStatistics:
             for line in file_handle:
                 for stats_generator in self.stats_generators.values():
                     stats_generator.parse_line(line)
+
+    def get(self,
+            key: str,
+            default: Optional[StatisticsGenerator] = None
+            ) -> Optional[StatisticsGenerator]:
+        """Return StatisticsGenerator identified by ``key``, else ``default``.
+        """
+        return self.stats_generators.get(key, default)
