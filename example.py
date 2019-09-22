@@ -19,17 +19,25 @@ arg_parser.add_argument(
 )
 args = arg_parser.parse_args()
 
-# List of stats we want to obtain
-stats_generators = [
-    text_statistics.AverageWordSize(),
-    text_statistics.LetterCount(),
-    text_statistics.LineCount(),
-    text_statistics.MostCommonLetter(),
-    text_statistics.WordCount(),
-]
+# Dictionary of stats we want to obtain
+stats_generators = {
+    'Average Word Size': text_statistics.AverageWordSize(),
+    'Letter Count': text_statistics.LetterCount(),
+    'Line Count': text_statistics.LineCount(),
+    'Most Common Letter': text_statistics.MostCommonLetter(),
+    'Word Count': text_statistics.WordCount(),
+}
 stats = text_statistics.TextStatistics(args.file, stats_generators)
 
 stats.process_file()
 
-for stats_generator in stats.stats_generators:
-    print(f"{stats_generator}")
+# Print all stats
+for identifier, stats_generator in stats.stats_generators.items():
+    print(f"{identifier}: {stats_generator}")
+
+# Create your own stats
+words = stats.stats_generators.get('Word Count').result()
+lines = stats.stats_generators.get('Line Count').result()
+words_per_line = words / lines
+
+print(f"Words per line: {words_per_line}")

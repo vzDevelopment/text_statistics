@@ -7,8 +7,6 @@ from .word_count import WordCount
 
 class AverageWordSize(StatisticsGenerator):
     def __init__(self, decimal_places: int = 1) -> None:
-        super().__init__('Average Word Size')
-
         self._decimal_places: int = decimal_places
 
         self._word_count: WordCount = WordCount()

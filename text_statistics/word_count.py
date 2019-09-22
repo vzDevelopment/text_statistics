@@ -5,7 +5,6 @@ from .statistics_generator import StatisticsGenerator
 
 class WordCount(StatisticsGenerator):
     def __init__(self) -> None:
-        super().__init__('Word Count')
         self._word_count: int = 0
 
     def parse_line(self, line: str) -> None:

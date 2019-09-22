@@ -7,7 +7,6 @@ from .statistics_generator import StatisticsGenerator
 
 class MostCommonLetter(StatisticsGenerator):
     def __init__(self) -> None:
-        super().__init__('Most Common Letter')
         self._letters: Dict[str, int] = {}
 
     # Although this doesn't currently use self, it's not static because we may
