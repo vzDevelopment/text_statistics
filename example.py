@@ -19,17 +19,15 @@ arg_parser.add_argument(
 )
 args = arg_parser.parse_args()
 
-# Dictionary of stats we want to obtain
-stats_generators = {
+stats = text_statistics.TextStatistics({
     'Average Word Size': text_statistics.AverageWordSize(),
     'Letter Count': text_statistics.LetterCount(),
     'Line Count': text_statistics.LineCount(),
     'Most Common Letter': text_statistics.MostCommonLetter(),
     'Word Count': text_statistics.WordCount(),
-}
-stats = text_statistics.TextStatistics(args.file, stats_generators)
+})
 
-stats.process_file()
+stats.process_file(args.file)
 
 # Print all stats
 for identifier, stats_generator in stats.stats_generators.items():
