@@ -12,15 +12,19 @@ from .word_count import WordCount
 
 
 class AverageWordSize(StatisticsGenerator):
-    """This class calculates the average word size for the parsed strings."""
+    """This class calculates the average word size for the parsed strings.
+
+    Attributes:
+        decimal_places: the number of decimal places to return the result to.
+    """
 
     def __init__(self, decimal_places: int = 1) -> None:
         """Initialise the AverageWordSize object
 
         Arguments:
-            decimal_places: the number of decimal places to use for the result
+            decimal_places: the number of decimal places to use for the result.
         """
-        self._decimal_places: int = decimal_places
+        self.decimal_places: int = decimal_places
 
         self._word_count: WordCount = WordCount()
         self._letter_count: LetterCount = LetterCount()
@@ -47,4 +51,4 @@ class AverageWordSize(StatisticsGenerator):
         except ZeroDivisionError:
             result = 0
 
-        return round(result, self._decimal_places)
+        return round(result, self.decimal_places)
