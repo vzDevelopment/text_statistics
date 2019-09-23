@@ -17,7 +17,13 @@ The library can easily be extended to provide additional statistics.
 ## How to use
 
 ### Installing the package
-TBA
+If you don't have a source archive file you can build one by following the `Building the package` section. You can then install this with pip e.g.
+
+```
+pip3 install ./dist/text_statistics-0.1.0.tar.gz
+```
+
+Alternatively, you can just ensure the package is in your path (`sys.path`). For example, running `./example.py` with the currently directory layout will work fine because Python will look for the module in directory containing the script.
 
 ### Running the code
 
@@ -101,6 +107,16 @@ To create a new plugin, all you need to do is inherit from the `StatisticsGenera
 
 ### Static type analysis
 The code uses Python's type hints and can be analysed with static type checkers such as [mypy](http://mypy-lang.org/).
+
+### Building the package
+
+Just run the following command:
+
+```
+python3 setup.py sdist bdist_wheel
+```
+
+This will put the built files in the `dist/` directory.
 
 ## Caveats
 
