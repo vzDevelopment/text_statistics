@@ -84,8 +84,11 @@ Provides the number of lines in a file.
 ### LetterCount
 Calculates the number of alphabetical and numerical characters (i.e. [str.isalnum()](https://docs.python.org/3/library/stdtypes.html#str.isalnum)) in the file.
 
+### LetterOccurances
+Counts the number of alphabetical characters (as per [str.isalpha()](https://docs.python.org/3/library/stdtypes.html#str.isalpha)) in a file and returns the counts in a dictionary.
+
 ### MostCommonLetter
-Returns a set of the most common alphabetical characters (as per [str.isalpha()](https://docs.python.org/3/library/stdtypes.html#str.isalpha)) in a file.
+Returns a set of the most common alphabetical characters (as defined in LetterOccurances) in a file.
 
 ### WordCount
 Returns the number of whitespace delimited words in a file.
