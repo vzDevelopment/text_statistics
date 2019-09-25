@@ -33,6 +33,14 @@ class TestLineCount(BaseStatsGeneratorTest, unittest.TestCase):
                 ],
                 expected_result=2
             ),
+            UnitTestData(
+                'Windows line endings',
+                [
+                    'Line1\r\n',
+                    'Line2\r\n',
+                ],
+                expected_result=2
+            ),
         ]
 
     @staticmethod
