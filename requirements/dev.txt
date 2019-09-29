@@ -1,0 +1,6 @@
+bandit==1.6.2
+coverage==4.5.3
+MutPy==0.5.1
+mypy==0.720
+mypy-extensions==0.4.1
+pylint==2.3.1

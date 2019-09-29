@@ -111,15 +111,33 @@ To create a new plugin, all you need to do is inherit from the `StatisticsGenera
 ### Static type analysis
 The code uses Python's type hints and can be analysed with static type checkers such as [mypy](http://mypy-lang.org/).
 
+### Dev Reports
+
+The following commands will install and run the dev report tools:
+
+```
+pip3 install -r requirements/dev.txt
+make dev-report
+```
+
+This will run type checking, normal linting, security linting, the unit tests, perform mutation testing, and produce a unit test coverage report in `htmlcov/`.
+
 ### Building the package
 
-Just run the following command:
+You can either install the dev dependencies and run the entire build pipeline:
+
+```
+pip3 install -r requirements/dev.txt
+make build
+```
+
+or build the package yourself using Python's [setuptools](https://packaging.python.org/key_projects/#setuptools) e.g.
 
 ```
 python3 setup.py sdist bdist_wheel
 ```
 
-This will put the built files in the `dist/` directory.
+Both methods will put the built files in the `dist/` directory.
 
 ## Caveats
 

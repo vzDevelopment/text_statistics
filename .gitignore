@@ -1,0 +1,7 @@
+*.pyc
+*text_statistics.egg*
+.coverage
+.mypy_cache
+build
+dist
+htmlcov
