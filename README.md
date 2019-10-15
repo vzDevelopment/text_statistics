@@ -10,6 +10,9 @@ This library allows the user to compute various statistics about a text file. Fo
 
 The library can easily be extended to provide additional statistics.
 
+### Background
+This was a coding exercise which I have used for practise. The original specification was to write a library to compute some statistics about a local text file with the aim of it being easy to extend to compute additional statistics in the future.
+
 ## Requirements
 
 * Python 3.7 or later
