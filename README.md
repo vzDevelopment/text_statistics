@@ -19,6 +19,10 @@ This was a coding exercise which I have used for practise. The original specific
 
 ## How to use
 
+### Quick Start
+
+If you just want to see the library in action, then just run `example.py` as explained in the [example.py section](#examplepy) below.
+
 ### Installing the package
 If you don't have a source archive file you can build one by following the `Building the package` section. You can then install this with pip e.g.
 
