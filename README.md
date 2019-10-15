@@ -24,7 +24,7 @@ This was a coding exercise which I have used for practise. The original specific
 If you just want to see the library in action, then just run `example.py` as explained in the [example.py section](#examplepy) below.
 
 ### Installing the package
-If you don't have a source archive file you can build one by following the `Building the package` section. You can then install this with pip e.g.
+If you don't have a source archive file you can build one by following the [Building the package section](#building-the-package). You can then install this with pip e.g.
 
 ```
 pip3 install ./dist/text_statistics-0.1.0.tar.gz
