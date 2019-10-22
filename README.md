@@ -102,6 +102,23 @@ Returns the number of whitespace delimited words in a file.
 
 ## Developers Guide
 
+### Virtual Environment
+It's recommended that you setup a [Virtual Environment](https://docs.python.org/3/library/venv.html) and use that when developing e.g.
+
+```
+python3 -m venv ~/text_statistics_env
+source ~/text_statistics_env/bin/activate
+```
+
+### Dev Requirements
+Install `Make` using your distrubution's package manager e.g. `dnf install make`. After this, install the dev dependencies using `pip`:
+
+```
+pip3 install -r requirements/dev.txt
+```
+
+_n.b. if you're using a virtual environment don't forget to activate it before running `pip3 install`._
+
 ### Testing
 The library uses the standard [unittest](https://docs.python.org/3/library/unittest.html) module provided by Python. To run the unit tests, run the following command:
 
@@ -120,10 +137,9 @@ The code uses Python's type hints and can be analysed with static type checkers 
 
 ### Dev Reports
 
-The following commands will install and run the dev report tools:
+To run the dev report tools, install the [Dev Requirements](#dev-requirements) and then run:
 
 ```
-pip3 install -r requirements/dev.txt
 make dev-report
 ```
 
@@ -131,17 +147,18 @@ This will run type checking, normal linting, security linting, the unit tests, p
 
 ### Building the package
 
-You can either install the dev dependencies and run the entire build pipeline:
+You can either:
+
+* Install the [Dev Requirements](#dev-requirements) and then run the entire build pipeline:
 
 ```
-pip3 install -r requirements/dev.txt
 make build
 ```
 
-or build the package yourself using Python's [setuptools](https://packaging.python.org/key_projects/#setuptools) e.g.
+* Or build the package yourself using Python's [setuptools](https://packaging.python.org/key_projects/#setuptools) e.g.
 
 ```
-python3 setup.py sdist bdist_wheel
+python3 setup.py sdist
 ```
 
 Both methods will put the built files in the `dist/` directory.
